@@ -1,3 +1,5 @@
+package simple
+
 import windlass._
 import windlass.processors._
 

@@ -10,7 +10,8 @@ class Request(_method: String, _url: Uri, _headers: Map[String, String], _body: 
   def copy(method: String = _method, url: Uri = _url, headers: Map[String, String] = _headers, body: String = _body) =
     new Request(method, url, headers, body)
 
-  val url: Uri = _url
+  val uri: Uri = _url
+  val url: String = uri.toString
   def url(u: Uri): Request = this.copy(url = u)
 
   val method: String = _method
@@ -22,11 +23,11 @@ class Request(_method: String, _url: Uri, _headers: Map[String, String], _body: 
   val body: String = _body
   def body(b: String) = this.copy(body = b)
 
-  lazy val queryStrings: Map[String, String] = url.query.toMap
+  lazy val queryStrings: Map[String, String] = uri.query.toMap
   lazy val formParams: Map[String, String] = ???
   lazy val params = queryStrings ++ formParams
 
-  def queryString(key: String): Option[String] = url.query.get(key)
+  def queryString(key: String): Option[String] = uri.query.get(key)
   def formParam(key: String): Option[String] = ???
 
 //  def param(key: String): Option[String] = queryString(key).orElse(formParam(key))
