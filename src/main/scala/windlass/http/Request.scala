@@ -3,10 +3,25 @@ package windlass.http
 import spray.http.Uri
 
 // TODO: Form parameters
+// Also: How much does this type lean on the spray types (like Uri)?
 
-// How much does this type lean on the spray types (like Uri)?
+class Request(_method: String, _url: Uri, _headers: Map[String, String], _body: String) {
+  def header(header: String, value: String) = this.copy(headers = _headers ++ Map(header -> value))
+  def copy(method: String = _method, url: Uri = _url, headers: Map[String, String] = _headers, body: String = _body) =
+    new Request(method, url, headers, body)
 
-case class Request(method: String, url: Uri, headers: Map[String, String], body: String) {
+  val url: Uri = _url
+  def url(u: Uri): Request = this.copy(url = u)
+
+  val method: String = _method
+  def method(m: String): Request = this.copy(method = m)
+
+  val headers: Map[String, String] = _headers
+  def headers(hs: Map[String, String]): Request = this.copy(headers = hs)
+
+  val body: String = _body
+  def body(b: String) = this.copy(body = b)
+
   lazy val queryStrings: Map[String, String] = url.query.toMap
   lazy val formParams: Map[String, String] = ???
   lazy val params = queryStrings ++ formParams
@@ -16,11 +31,4 @@ case class Request(method: String, url: Uri, headers: Map[String, String], body:
 
 //  def param(key: String): Option[String] = queryString(key).orElse(formParam(key))
   def param(key: String) = queryString(key)
-
-  // Immutable copy methods
-  def method(m: String) = this.copy(method = m)
-  def url(u: String) = this.copy(url = u)
-  def headers(hs: Map[String, String]) = this.copy(headers = hs)
-  def header(header: String, value: String) = this.copy(headers = this.headers ++ Map(header -> value))
-  def body(b: String) = this.copy(body = b)
 }

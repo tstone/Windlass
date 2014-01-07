@@ -7,10 +7,10 @@ import windlass.http.{Request, Response}
 package object adapters {
   implicit class HttpRequestOps(req: HttpRequest) {
     def toRequest = new Request(
-      method = req.method.toString,
-      uri = req.uri,
-      body = req.entity.toString,
-      headers = req.headers.foldLeft(Map[String, String]()) {
+      _method = req.method.toString,
+      _url = req.uri,
+      _body = req.entity.toString,
+      _headers = req.headers.foldLeft(Map[String, String]()) {
         case (acc: Map[String, String], header: HttpHeader) => acc ++ Map(header.name -> header.value)
       }
     )

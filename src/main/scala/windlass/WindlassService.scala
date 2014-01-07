@@ -16,7 +16,7 @@ class WindlassService(beforeAll: Seq[RequestProcessor], afterAll: Seq[ResponsePr
   private def pipeline(req: Request) = responsePipeline(requestPipeline(req))
 
   private def requestPipeline(req: Request, processors: Seq[RequestProcessor] = beforeAll): Response = processors match {
-    case Nil                    => Response(422)
+    case Nil                    => new Response(422)
     case proc :: remainingProcs => proc(req) match {
       case Left(newReq)         => requestPipeline(newReq, remainingProcs)
       case Right(resp)          => resp

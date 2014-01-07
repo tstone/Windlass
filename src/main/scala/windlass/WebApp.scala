@@ -12,10 +12,7 @@ class WebApp(val interface: String = "127.0.0.1", val port: Int = 9000, val conf
   IO(Http) ! Http.Bind(handler, interface, port)
 
   def beforeAll(procs: Seq[RequestProcessor]): WebApp = new WebApp(interface, port, config.copy(beforeAll = procs))
-  def beforeAll(procs: RequestProcessor*): WebApp = beforeAll(procs)
-
   def afterAll(procs: Seq[ResponseProcessor]): WebApp = new WebApp(interface, port, config.copy(afterAll = procs))
-  def afterAll(procs: ResponseProcessor*): WebApp = afterAll(procs)
 }
 
 object WebApp {
