@@ -3,7 +3,17 @@
 
 Currently, a very rough pass at some ideas I've had about a web application framework layer built on top of spray.
 
-It's not even close to being done yet.  In fact, most of it isn't tested as it's mostly a spike at the moment.
+It's not even close to being done yet.  In fact, most of it isn't tested as it's really just a spike at the moment.
+
+## Trying It Out
+
+```
+$ git clone git@github.com:tstone/Windlass.git
+$ cd windlass/src/examples/simple
+$ sbt run
+```
+
+Then open a browser to http://localhost:9000/test.
 
 ### TODO
 
