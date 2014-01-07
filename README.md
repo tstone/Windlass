@@ -37,7 +37,7 @@ Ease of use will in most cases trump HTTP protocol support.  The framework shoul
 
 #### (Default) Batteries Included
 
-It should be possible to get
+It should be possible to get going out of the gate with almost minimal fuss.  However other options should be pluggable.
 
 ## Contributing
 
