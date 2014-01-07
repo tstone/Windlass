@@ -6,9 +6,9 @@ import spray.can.Http
 import windlass.http.{ResponseProcessor, RequestProcessor}
 import windlass.WebApp.WebAppConfig
 
-class WebApp(val interface: String = "127.0.0.1", val port: Int = 9000, val config: WebAppConfig = WebAppConfig()) extends App {
+class WebApp(val interface: String = "localhost", val port: Int = 9000, val config: WebAppConfig = WebAppConfig()) {
   implicit val system = config.actorSystem
-  val handler = system.actorOf(Props[WindlassService], name = "windlass-handler")
+  val handler = system.actorOf(WindlassService.props(config.beforeAll, config.afterAll))
   IO(Http) ! Http.Bind(handler, interface, port)
 
   def beforeAll(procs: Seq[RequestProcessor]): WebApp = new WebApp(interface, port, config.copy(beforeAll = procs))

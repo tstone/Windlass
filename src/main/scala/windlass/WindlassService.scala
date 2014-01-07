@@ -2,6 +2,7 @@ package windlass
 
 import akka.actor._
 import spray.can.Http
+import spray.can.HttpManager
 import spray.http._
 import windlass.adapters._
 import windlass.http._
@@ -27,4 +28,9 @@ class WindlassService(beforeAll: Seq[RequestProcessor], afterAll: Seq[ResponsePr
     case Nil                    => resp
     case proc :: remainingProcs => responsePipeline(proc(resp), remainingProcs)
   }
+}
+
+object WindlassService {
+  def props(beforeAll: Seq[RequestProcessor], afterAll: Seq[ResponseProcessor]) =
+    Props(classOf[WindlassService], beforeAll, afterAll)
 }

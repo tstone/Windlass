@@ -1,8 +1,13 @@
 package simple
 
+import simple.SimpleRouter
 import windlass._
 import windlass.processors._
 
-new WebApp()
-  .beforeAll(FauxHttpMethod)
-  .afterAll(XPoweredBy("Windlass"))
+object Main {
+  def main(args: Array[String]) = {
+    new WebApp()
+      .beforeAll(SimpleRouter)
+      .afterAll(XPoweredBy("Windlass"))
+  }
+}

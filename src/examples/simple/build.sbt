@@ -1,7 +1,6 @@
+name := "simple"
 
-name := "windlass"
-
-version := "0.1"
+version := "1.0"
 
 scalaVersion := "2.10.2"
 
@@ -12,3 +11,5 @@ resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/release
 libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.2.3"
 
 libraryDependencies += "io.spray" % "spray-can" % "1.2.0"
+
+mainClass in (Compile, run) := Some("simple.Main")
