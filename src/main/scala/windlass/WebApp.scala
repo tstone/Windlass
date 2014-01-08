@@ -4,22 +4,14 @@ import akka.actor.{Props, ActorSystem}
 import akka.io.IO
 import spray.can.Http
 import windlass.http.{ResponseProcessor, RequestProcessor}
-import windlass.WebApp.WebAppConfig
 
-class WebApp(val interface: String = "localhost", val port: Int = 9000, val config: WebAppConfig = WebAppConfig()) {
-  implicit val system = config.actorSystem
-  val handler = system.actorOf(WindlassService.props(config.beforeAll, config.afterAll))
-  IO(Http) ! Http.Bind(handler, interface, port)
-
-  def beforeAll(procs: Seq[RequestProcessor]): WebApp = new WebApp(interface, port, config.copy(beforeAll = procs))
-  def afterAll(procs: Seq[ResponseProcessor]): WebApp = new WebApp(interface, port, config.copy(afterAll = procs))
+class WebApp(val interface: String = "localhost", val port: Int = 9000, val beforeAll: Seq[RequestProcessor] = Seq.empty, val afterAll: Seq[ResponseProcessor] = Seq.empty) {
+  implicit val system = WebApp.actorSystem
+  val handler = system.actorOf(WindlassService.props(beforeAll, afterAll))
+  
+  def start = IO(Http) ! Http.Bind(handler, interface, port)
 }
 
 object WebApp {
-  case class WebAppConfig(
-    beforeAll: Seq[RequestProcessor] = Seq.empty,
-    afterAll: Seq[ResponseProcessor] = Seq.empty
-  ) {
-    val actorSystem = ActorSystem()
-  }
+  lazy val actorSystem = ActorSystem()
 }
