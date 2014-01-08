@@ -55,6 +55,10 @@ Currently under development by myself.  Open to discussion about it.
 
 Need flushed out.  Don't have any strong opinions about how this should look.
 
+#### Routing
+
+A rough draft has been sketched out but has lots of room for improvement.  How will matching on multiple sections within a URL look?  Or matching with regex?  Or matching via querystrings or HTTP headers?  All things that need to get flushed out.
+
 #### Templating
 
 Open to ideas about what should happen here.  I think there's room for inovation in templating and in making re-usable HTML components.  Send me an email and I'll shoot you back some high level ideas I think should be captured.  Aside from concept work, some kind of template engine adaptation system will be needed, where existing template engines can *easily* be plugged in to Windlass.
