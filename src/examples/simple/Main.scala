@@ -3,10 +3,12 @@ package simple
 import windlass.processors._
 import windlass.http.{ResponseProcessor, Response}
 import windlass.WebApp._
+import scala.util.Try
 
 object Main extends App {
   new windlass.WebApp(
-    port = 9000,
+    interface = "0.0.0.0",
+    port = Try(sys.env("PORT").toInt).getOrElse(9000),
     beforeAll = SimpleRouter,
     afterAll = Seq(XPoweredBy("Windlass"), UpperCaseOutput)
   ).start
