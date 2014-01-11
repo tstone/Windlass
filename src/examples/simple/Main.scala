@@ -7,7 +7,6 @@ import scala.util.Try
 
 object Main extends App {
   new windlass.WebApp(
-    interface = "0.0.0.0",
     port = Try(sys.env("PORT").toInt).getOrElse(9000),
     beforeAll = SimpleRouter,
     afterAll = Seq(XPoweredBy("Windlass"), UpperCaseOutput)

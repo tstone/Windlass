@@ -5,7 +5,7 @@ import akka.io.IO
 import spray.can.Http
 import windlass.http.{ResponseProcessor, RequestProcessor}
 
-class WebApp(val interface: String = "localhost", val port: Int = 9000, val beforeAll: Seq[RequestProcessor] = Seq.empty, val afterAll: Seq[ResponseProcessor] = Seq.empty) {
+class WebApp(val interface: String = "0.0.0.0", val port: Int = 9000, val beforeAll: Seq[RequestProcessor] = Seq.empty, val afterAll: Seq[ResponseProcessor] = Seq.empty) {
   implicit val system = WebApp.actorSystem
   val handler = system.actorOf(WindlassService.props(beforeAll, afterAll))
   
