@@ -1,13 +1,21 @@
 package simple
 
-import windlass._
 import windlass.processors._
-import windlass.http.Response
+import windlass.http.{ResponseProcessor, Response}
 import windlass.WebApp._
 
-object Main {
-  def main(args: Array[String]) = {
-    new windlass.WebApp(beforeAll = Seq(SimpleRouter), 
-        afterAll = Seq(XPoweredBy("Windlass"), ((resp:Response) => { resp.body(resp.body.toUpperCase) }))).start
-  }
+object Main extends App {
+  new windlass.WebApp(
+    port = 9000,
+    beforeAll = SimpleRouter,
+    afterAll = Seq(XPoweredBy("Windlass"), UpperCaseOutput)
+  ).start
+}
+
+/**
+ * Example of a simple ResponseProcessor.
+ * Turns all response to upper case.
+ */
+object UpperCaseOutput extends ResponseProcessor {
+  def apply(resp: Response) = resp.body(resp.body.toUpperCase)
 }
